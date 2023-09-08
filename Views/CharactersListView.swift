@@ -44,13 +44,13 @@ struct CharactersListView: View {
             }
         } //List
         .sheet(item: $characterPresented) { character in
-            CharacterDetailsView(name: characterPresented?.name ?? "",
-                                 gender: characterPresented?.gender ?? "",
-                                 species: characterPresented?.species ?? "",
-                                 status: characterPresented?.status ?? "",
-                                 origin: characterPresented?.origin.name ?? "",
-                                 type: characterPresented?.type ?? "",
-                                 location: characterPresented?.location.name ?? "")
+            CharacterDetailsView(name: character.name,
+                                 gender: character.gender,
+                                 species: character.species,
+                                 status: character.status,
+                                 origin: character.origin.name,
+                                 type: character.type ?? "",
+                                 location: character.location.name)
         }
 //        .task {
 //            await apiManager.fetchData()
