@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class CharactersListViewModel: ObservableObject {
+class CharactersListViewModel: ObservableObject {
     
     enum CharactersListViewModelError: Error {
         case fetchNextPageFailed
