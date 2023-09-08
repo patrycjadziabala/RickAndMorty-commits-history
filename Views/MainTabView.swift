@@ -19,10 +19,12 @@ struct MainTabView: View {
                         Label("Home", systemImage: "house.fill")
                     }
             }
-            FavouritesView()
-                .tabItem {
-                    Label("Fav", systemImage: "house.fill")
-                }
+            NavigationStack {
+                FavouritesView()
+                    .tabItem {
+                        Label("Fav", systemImage: "house.fill")
+                    }
+            }
         } //tabview
         .environmentObject(persistanceManager)
     }
