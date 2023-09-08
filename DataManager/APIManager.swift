@@ -10,6 +10,7 @@ import SwiftUI
 
 protocol APIManagerProtocol {
     func fetchNextPage() async -> [Character]?
+    func searchCharacter(name: String) async -> [Character]?
 }
 
 final class APIManager: ObservableObject, APIManagerProtocol {
@@ -32,7 +33,18 @@ final class APIManager: ObservableObject, APIManagerProtocol {
         }
     }
     
-    func searchCharacter(name: String) async -> Character? {
-        return nil
+    func searchCharacter(name: String) async -> [Character]? {
+        guard let url = URL(string: "https://rickandmortyapi.com/api/character/?name=\(name)") else {
+            print("Invalid URL")
+            return nil
+        }
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let decodedResponse = try JSONDecoder().decode(Results.self, from: data)
+            return decodedResponse.results
+        } catch {
+            print("Invalid data, error: \(error)")
+            return nil
+        }
     }
 }

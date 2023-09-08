@@ -7,11 +7,12 @@
 
 import Foundation
 
+enum CharactersListViewModelError: Error {
+    case fetchNextPageFailed
+    case searchResultsFailed
+}
+
 class CharactersListViewModel: ObservableObject {
-    
-    enum CharactersListViewModelError: Error {
-        case fetchNextPageFailed
-    }
     
     private let apiManager: APIManagerProtocol
     @Published var characters: [Character] = []
@@ -19,6 +20,7 @@ class CharactersListViewModel: ObservableObject {
     init(apiManager: APIManagerProtocol) {
         self.apiManager = apiManager
     }
+    
     @MainActor
     func fetchNextPage() async throws {
         if let nextPageCharacters = await apiManager.fetchNextPage() {

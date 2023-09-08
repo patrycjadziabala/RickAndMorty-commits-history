@@ -26,7 +26,7 @@ struct MainTabView: View {
                 Label("Fav", systemImage: "star")
             }
             
-            SearchView(text: "Search")
+            SearchView(text: "Search", viewModel: SearchViewModel(apiManager: APIManager()))
                 .tabItem {
                     Label("Search", systemImage: "magnifyingglass")
                 }

@@ -9,13 +9,17 @@ import Foundation
 
 final class SearchViewModel: ObservableObject {
     private let apiManager: APIManagerProtocol
-    @Published var character: Character?
     
     init(apiManager: APIManagerProtocol) {
         self.apiManager = apiManager
     }
     
-    func searchCharacter(name: String) {
-        
+    @MainActor
+    func searchCharacter(name: String) async throws -> [Character] {
+        if let characterResults = await apiManager.searchCharacter(name: name) {
+            return characterResults
+        } else {
+            throw CharactersListViewModelError.searchResultsFailed
+        }
     }
 }
