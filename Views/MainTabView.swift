@@ -15,18 +15,21 @@ struct MainTabView: View {
         TabView {
             NavigationStack {
                 CharactersListView(viewModel: CharactersListViewModel(apiManager: APIManager()))
-                    
             }
             .tabItem {
                 Label("Home", systemImage: "house.fill")
             }
             NavigationStack {
                 FavouritesView()
-                    
             }
             .tabItem {
                 Label("Fav", systemImage: "star")
             }
+            
+            SearchView(text: "Search")
+                .tabItem {
+                    Label("Search", systemImage: "magnifyingglass")
+                }
         } //tabview
         .environmentObject(persistanceManager)
     }

@@ -11,14 +11,7 @@ struct FavouritesView: View {
     @EnvironmentObject var persistanceManager: PersistenceManager
     
     var body: some View {
-        List {
-            ForEach(persistanceManager.persistedData, id: \.id) { character in
-                CharacterCellView(character: character)
-            } //foreach
-        } //List
-        .navigationDestination(for: Character.self) { character in
-            CharacterDetailsView(characterModel: character)
-        }
+        StaticCharacterListView(characters: persistanceManager.persistedData)
     }
 }
 

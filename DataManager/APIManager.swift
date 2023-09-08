@@ -31,4 +31,8 @@ final class APIManager: ObservableObject, APIManagerProtocol {
             return nil
         }
     }
+    
+    func searchCharacter(name: String) async -> Character? {
+        return nil
+    }
 }
