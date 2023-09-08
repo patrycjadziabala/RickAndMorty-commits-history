@@ -15,7 +15,7 @@ struct RickAndMortyApp: App {
     
     var body: some Scene {
         WindowGroup {            
-            CharactersListView(viewModel: CharactersListViewModel())
+            MainTabView()
                 .environmentObject(apiManager)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
