@@ -15,7 +15,7 @@ struct CharactersListView: View {
     
     var body: some View {
         List {
-            ForEach(apiManager.characters, id: \.id) { character in
+            ForEach(viewModel.characters, id: \.id) { character in
                 HStack {
                     AsyncImage(url: URL(string: character.image)) { image in
                         image.resizable()
@@ -46,7 +46,16 @@ struct CharactersListView: View {
             } //foreach
             Text("Test")
                  .onAppear {
-//                         viewModel.fetchNextPage()
+                     Task {
+                         do {
+                            try await viewModel.fetchNextPage()
+                             
+// TODO: - Error handling
+                             
+                         } catch {
+                             print(error.localizedDescription)
+                         }
+                     }
                  }
         } //List
        
@@ -71,6 +80,6 @@ struct CharactersListView: View {
 
 struct CharactersListView_Previews: PreviewProvider {
     static var previews: some View {
-        CharactersListView(viewModel: CharactersListViewModel())
+        CharactersListView(viewModel: CharactersListViewModel(apiManager: APIManager()))
     }
 }

@@ -12,7 +12,7 @@ struct MainTabView: View {
     
     var body: some View {
         TabView {
-            CharactersListView(viewModel: CharactersListViewModel())
+            CharactersListView(viewModel: CharactersListViewModel(apiManager: APIManager()))
                 .tabItem {
                     Label("Home", systemImage: "house.fill")
                 }
