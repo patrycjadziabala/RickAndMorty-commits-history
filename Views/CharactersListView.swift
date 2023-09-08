@@ -10,6 +10,7 @@ import SwiftUI
 struct CharactersListView: View {
     
     @ObservedObject var viewModel: CharactersListViewModel
+    @EnvironmentObject var persistanceManager: PersistenceManager
     
     var body: some View {
         
@@ -27,6 +28,9 @@ struct CharactersListView: View {
                         VStack (alignment: .leading) {
                             HStack {
                                 Text(character.name)
+                                if persistanceManager.isPersisted(model: character) {
+                                    Image(systemName: "star.fill")
+                                }
                             } //hstack
                             HStack {
                                 HStack {

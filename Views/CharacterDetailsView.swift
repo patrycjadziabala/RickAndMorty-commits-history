@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CharacterDetailsView: View {
     let characterModel: Character
+    @EnvironmentObject var persistanceManager: PersistenceManager
     
     var body: some View {
         ScrollView {
@@ -29,6 +30,12 @@ struct CharacterDetailsView: View {
         HStack {
             Text("Name")
             Text(characterModel.name)
+            Button {
+                persistanceManager.togglePersisted(model: character)
+            } label: {
+                Image(systemName: persistanceManager.isPersisted(model: character) ? "star.fill" : "star")
+            }
+
         } //hstack
         Divider()
         HStack {

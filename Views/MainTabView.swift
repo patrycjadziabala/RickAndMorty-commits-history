@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainTabView: View {
     
+    @StateObject var persistanceManager: PersistenceManager = PersistenceManager()
     
     var body: some View {
         TabView {
@@ -23,6 +24,7 @@ struct MainTabView: View {
                     Label("Fav", systemImage: "house.fill")
                 }
         } //tabview
+        .environmentObject(persistanceManager)
     }
 }
 
