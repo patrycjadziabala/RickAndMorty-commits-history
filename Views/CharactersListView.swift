@@ -12,8 +12,18 @@ struct CharactersListView: View {
     @ObservedObject var viewModel: CharactersListViewModel
     @EnvironmentObject var persistanceManager: PersistenceManager
     
+    init(viewModel: CharactersListViewModel) {
+        self.viewModel = viewModel
+    }
+    
+    init(nameSearchString: String) {
+        let apiManager = APIManager()
+        apiManager.configureForNameSearch(name: nameSearchString)
+        let viewModel = CharactersListViewModel(apiManager: apiManager)
+        self.viewModel = viewModel
+    }
+    
     var body: some View {
-        
         List {
             ForEach(viewModel.characters, id: \.id) { character in
                 CharacterCellView(character: character)

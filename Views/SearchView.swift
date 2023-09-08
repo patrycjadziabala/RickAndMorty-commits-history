@@ -11,7 +11,6 @@ struct SearchView: View {
     @State var text: String
     @State private var isEditing = false
     @State private var navigationPath = NavigationPath()
-    @StateObject var viewModel: SearchViewModel
     
     var body: some View {
         NavigationStack(path: $navigationPath) {
@@ -28,15 +27,8 @@ struct SearchView: View {
                 if isEditing {
                     Button(action: {
                         self.isEditing = false
-                        Task {
-                            do {
-                                let results = try await viewModel.searchCharacter(name: text)
-                                navigationPath.append(results)
-                            } catch {
-                                // TODO: - Error handling
-                            }
-                        }
-//                        self.text = ""
+                        navigationPath.append(self.text)
+                        self.text = ""
                     }) {
                         Text("Go")
                     }
@@ -45,8 +37,8 @@ struct SearchView: View {
                     //                .animation(.default)
                 }
             } //HStack
-            .navigationDestination(for: [Character].self) { characters in
-                StaticCharacterListView(characters: characters)
+            .navigationDestination(for: String.self) { string in
+                CharactersListView(nameSearchString: string)
             }
         } //NavigationStack
     }
@@ -54,6 +46,6 @@ struct SearchView: View {
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView(text: "Search", viewModel: SearchViewModel(apiManager: APIManager()))
+        SearchView(text: "Search")
     }
 }
