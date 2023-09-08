@@ -18,7 +18,7 @@ struct Info: Codable {
     let next: String
 }
 
-struct Character: Codable, Identifiable {
+struct Character: Codable, Identifiable, Hashable, Equatable {
     let id: Int
     let name: String
     let status: String
@@ -31,10 +31,10 @@ struct Character: Codable, Identifiable {
     let episode: [String]
 }
 
-struct Origin: Codable {
+struct Origin: Codable, Equatable, Hashable {
     let name: String
 }
 
-struct Location: Codable {
+struct Location: Codable, Equatable, Hashable {
     let name: String
 }

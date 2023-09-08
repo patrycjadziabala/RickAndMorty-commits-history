@@ -13,7 +13,7 @@ final class CharactersListViewModel: ObservableObject {
         case fetchNextPageFailed
     }
     
-    let apiManager: APIManagerProtocol
+    private let apiManager: APIManagerProtocol
     @Published var characters: [Character] = []
     
     init(apiManager: APIManagerProtocol) {

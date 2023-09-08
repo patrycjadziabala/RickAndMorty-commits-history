@@ -8,23 +8,12 @@
 import SwiftUI
 
 struct CharacterDetailsView: View {
-    //    @EnvironmentObject var apiManager: APIManager
-    //    var character: Character
-    //    @State var episodeCount: Int
-    
-    var name: String
-    var gender: String
-    var species: String
-    var status: String
-    var origin: String
-    var type: String
-    var location: String
-    var image: String
+    let characterModel: Character
     
     var body: some View {
         ScrollView {
             VStack {
-                AsyncImage(url: URL(string: image)) { image in
+                AsyncImage(url: URL(string: characterModel.image)) { image in
                     image.resizable()
                 } placeholder: {
                     ProgressView()
@@ -49,22 +38,24 @@ struct CharacterDetailsView: View {
                 Divider()
                 HStack {
                     Text("Status")
-                    Text(status)
+                    Text(characterModel.status)
                 } //hstack
                 Divider()
                 HStack {
                     Text("Origin")
-                    Text(origin)
+                    Text(characterModel.origin.name)
                 } //hstack
                 Divider()
-                HStack {
-                    Text("Type")
-                    Text(type)
-                } //hstack
-                Divider()
+                if let type = characterModel.type {
+                    HStack {
+                        Text("Type")
+                        Text(type)
+                    } //hstack
+                    Divider()
+                }
                 HStack {
                     Text("Location")
-                    Text(location)
+                    Text(characterModel.location.name)
                 } //hstack
                 Divider()
                 //            HStack {
@@ -80,6 +71,7 @@ struct CharacterDetailsView: View {
 
 struct CharacterDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        CharacterDetailsView(name: "", gender: "", species: "", status: "", origin: "", type: "", location: "", image: "")
+        
+        CharacterDetailsView(characterModel: Character(id: 1, name: "", status: "", species: "", type: "", gender: "", origin: Origin(name: ""), location: Location(name: "") , image: "", episode: []))
     }
 }

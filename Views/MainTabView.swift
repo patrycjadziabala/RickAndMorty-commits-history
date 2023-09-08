@@ -12,10 +12,12 @@ struct MainTabView: View {
     
     var body: some View {
         TabView {
-            CharactersListView(viewModel: CharactersListViewModel(apiManager: APIManager()))
-                .tabItem {
-                    Label("Home", systemImage: "house.fill")
-                }
+            NavigationStack {
+                CharactersListView(viewModel: CharactersListViewModel(apiManager: APIManager()))
+                    .tabItem {
+                        Label("Home", systemImage: "house.fill")
+                    }
+            }
             FavouritesView()
                 .tabItem {
                     Label("Fav", systemImage: "house.fill")
