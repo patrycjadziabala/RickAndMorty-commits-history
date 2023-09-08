@@ -13,58 +13,65 @@ struct CharacterDetailsView: View {
     var body: some View {
         ScrollView {
             VStack {
-                AsyncImage(url: URL(string: characterModel.image)) { image in
-                    image.resizable()
-                } placeholder: {
-                    ProgressView()
-                } //image
-                
-                // TODO: - Rozbic na mniejsze widoki
-                
-//                HStack {
-//                    Text("Name")
-//                    Text(name)
-//                } //hstack
-//                Divider()
-//                HStack {
-//                    Text("Gender")
-//                    Text(gender)
-//                } //hstack
-//                Divider()
-//                HStack {
-//                    Text("Species")
-//                    Text(species)
-//                } //hstack
-                Divider()
-                HStack {
-                    Text("Status")
-                    Text(characterModel.status)
-                } //hstack
-                Divider()
-                HStack {
-                    Text("Origin")
-                    Text(characterModel.origin.name)
-                } //hstack
-                Divider()
-                if let type = characterModel.type {
-                    HStack {
-                        Text("Type")
-                        Text(type)
-                    } //hstack
-                    Divider()
-                }
-                HStack {
-                    Text("Location")
-                    Text(characterModel.location.name)
-                } //hstack
-                Divider()
-                //            HStack {
-                //                Text("Number of episodes")
-                //                Text(episodeCount, format: .number)
-                //            } //hstack
-                //            Divider()
+                getPartialView(for: characterModel)
+              getPartialView2(for: characterModel)
             } //vstack
         }
+    }
+    
+    @ViewBuilder
+    func getPartialView(for character: Character) -> some View {
+        AsyncImage(url: URL(string: characterModel.image)) { image in
+            image.resizable()
+        } placeholder: {
+            ProgressView()
+        } //image
+        HStack {
+            Text("Name")
+            Text(characterModel.name)
+        } //hstack
+        Divider()
+        HStack {
+            Text("Gender")
+            Text(characterModel.gender)
+        } //hstack
+        Divider()
+        HStack {
+            Text("Species")
+            Text(characterModel.species)
+        } //hstack
+        Divider()
+        HStack {
+            Text("Status")
+            Text(characterModel.status)
+        } //hstack
+        Divider()
+    }
+    
+    @ViewBuilder
+    func getPartialView2(for character: Character) -> some View {
+        HStack {
+            Text("Origin")
+            Text(characterModel.origin.name)
+        } //hstack
+        Divider()
+        if let type = characterModel.type {
+            HStack {
+                Text("Type")
+                Text(type)
+            } //hstack
+            Divider()
+        }
+        HStack {
+            Text("Location")
+            Text(characterModel.location.name)
+        } //hstack
+        Divider()
+        //            HStack {
+        //                Text("Number of episodes")
+        //                Text(episodeCount, format: .number)
+        //            } //hstack
+        //            Divider()
     }
 }
 

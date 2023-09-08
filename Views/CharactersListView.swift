@@ -12,57 +12,54 @@ struct CharactersListView: View {
     @ObservedObject var viewModel: CharactersListViewModel
     
     var body: some View {
-    
-            List {
-                ForEach(viewModel.characters, id: \.id) { character in
-                    NavigationLink(value: character) {
-                        HStack {
-                            AsyncImage(url: URL(string: character.image)) { image in
-                                image.resizable()
-                            } placeholder: {
-                                ProgressView()
-                            } //image
-                            .frame(width: 50, height: 50)
+        
+        List {
+            ForEach(viewModel.characters, id: \.id) { character in
+                NavigationLink(value: character) {
+                    HStack {
+                        AsyncImage(url: URL(string: character.image)) { image in
+                            image.resizable()
+                        } placeholder: {
+                            ProgressView()
+                        } //image
+                        .frame(width: 50, height: 50)
+                        
+                        VStack (alignment: .leading) {
+                            HStack {
+                                Text(character.name)
+                            } //hstack
+                            HStack {
+                                HStack {
+                                    Text("Status:")
+                                    Text(character.status)
+                                } //hstack
+                                HStack {
+                                    Text("Species:")
+                                    Text(character.species)
+                                } //hstack
+                            } //hstack
+                        } //vstack
+                    } //hstack
+                } //NavigationLink
+                
+            } //foreach
+            Text("Test")
+                .onAppear {
+                    Task {
+                        do {
+                            try await viewModel.fetchNextPage()
                             
-                            VStack (alignment: .leading) {
-                                HStack {
-                                    Text(character.name)
-                                } //hstack
-                                HStack {
-                                    HStack {
-                                        Text("Status:")
-                                        Text(character.status)
-                                    } //hstack
-                                    HStack {
-                                        Text("Species:")
-                                        Text(character.species)
-                                    } //hstack
-                                } //hstack
-                            } //vstack
-                        } //hstack
-                    } //NavigationLink
-                 
-                } //foreach
-                Text("Test")
-                    .onAppear {
-                        Task {
-                            do {
-                                try await viewModel.fetchNextPage()
-                                
-                                // TODO: - Error handling
-                                
-                            } catch {
-                                print(error.localizedDescription)
-                            }
+                            // TODO: - Error handling
+                            
+                        } catch {
+                            print(error.localizedDescription)
                         }
                     }
-            } //List
-            .navigationDestination(for: Character.self) { character in
-                CharacterDetailsView(characterModel: character)
-            }
-        //        .task {
-        //            await apiManager.fetchData()
-        //        }
+                }
+        } //List
+        .navigationDestination(for: Character.self) { character in
+            CharacterDetailsView(characterModel: character)
+        }
     }
 }
 
