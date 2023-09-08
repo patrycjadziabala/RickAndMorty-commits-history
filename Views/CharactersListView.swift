@@ -10,39 +10,47 @@ import SwiftUI
 struct CharactersListView: View {
     
     @EnvironmentObject var apiManager: APIManager
+    @ObservedObject var viewModel: CharactersListViewModel
     @State private var characterPresented: Character?
     
     var body: some View {
-        List(apiManager.characters, id: \.id) { character in
-          
-            HStack {
-                AsyncImage(url: URL(string: character.image)) { image in
-                    image.resizable()
-                } placeholder: {
-                    ProgressView()
-                } //image
-                .frame(width: 50, height: 50)
-
-                VStack (alignment: .leading) {
-                    HStack {
-                        Text(character.name)
-                    } //hstack
-                    HStack {
+        List {
+            ForEach(apiManager.characters, id: \.id) { character in
+                HStack {
+                    AsyncImage(url: URL(string: character.image)) { image in
+                        image.resizable()
+                    } placeholder: {
+                        ProgressView()
+                    } //image
+                    .frame(width: 50, height: 50)
+                    
+                    VStack (alignment: .leading) {
                         HStack {
-                            Text("Status:")
-                            Text(character.status)
+                            Text(character.name)
                         } //hstack
                         HStack {
-                            Text("Species:")
-                            Text(character.species)
+                            HStack {
+                                Text("Status:")
+                                Text(character.status)
+                            } //hstack
+                            HStack {
+                                Text("Species:")
+                                Text(character.species)
+                            } //hstack
                         } //hstack
-                    } //hstack
-                } //vstack
-            } //hstack
-            .onTapGesture {
-                characterPresented = character
-            }
+                    } //vstack
+                } //hstack
+                .onTapGesture {
+                    characterPresented = character
+                }
+            } //foreach
+            Text("Test")
+                 .onAppear {
+//                         viewModel.fetchNextPage()
+                 }
         } //List
+       
+        
         .sheet(item: $characterPresented) { character in
             CharacterDetailsView(name: character.name,
                                  gender: character.gender,
@@ -50,16 +58,19 @@ struct CharactersListView: View {
                                  status: character.status,
                                  origin: character.origin.name,
                                  type: character.type ?? "",
-                                 location: character.location.name)
+                                 location: character.location.name,
+                                 image: character.image)
         }
-//        .task {
-//            await apiManager.fetchData()
-//        }
-    } 
+        
+        
+        //        .task {
+        //            await apiManager.fetchData()
+        //        }
+    }
 }
 
 struct CharactersListView_Previews: PreviewProvider {
     static var previews: some View {
-        CharactersListView()
+        CharactersListView(viewModel: CharactersListViewModel())
     }
 }

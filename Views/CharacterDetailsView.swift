@@ -19,50 +19,54 @@ struct CharacterDetailsView: View {
     var origin: String
     var type: String
     var location: String
+    var image: String
     
     var body: some View {
         ScrollView {
             VStack {
-                //                AsyncImage(url: URL(string: character.image)) { image in
-                //                    image.resizable()
-                //                } placeholder: {
-                //                    ProgressView()
-                //                } //image
+                AsyncImage(url: URL(string: image)) { image in
+                    image.resizable()
+                } placeholder: {
+                    ProgressView()
+                } //image
+                
+                // TODO: - Rozbic na mniejsze widoki
+                
+//                HStack {
+//                    Text("Name")
+//                    Text(name)
+//                } //hstack
+//                Divider()
+//                HStack {
+//                    Text("Gender")
+//                    Text(gender)
+//                } //hstack
+//                Divider()
+//                HStack {
+//                    Text("Species")
+//                    Text(species)
+//                } //hstack
+                Divider()
                 HStack {
-                    Text("Name")
-                    Text(name)
+                    Text("Status")
+                    Text(status)
                 } //hstack
                 Divider()
                 HStack {
-                    Text("Gender")
-                    Text(gender)
+                    Text("Origin")
+                    Text(origin)
                 } //hstack
                 Divider()
                 HStack {
-                    Text("Species")
-                    Text(species)
+                    Text("Type")
+                    Text(type)
                 } //hstack
                 Divider()
-//                HStack {
-//                    Text("Status")
-//                    Text(status)
-//                } //hstack
-//                Divider()
-//                HStack {
-//                    Text("Origin")
-//                    Text(origin)
-//                } //hstack
-//                Divider()
-//                HStack {
-//                    Text("Type")
-//                    Text(type)
-//                } //hstack
-//                Divider()
-//                HStack {
-//                    Text("Location")
-//                    Text(location)
-//                } //hstack
-//                Divider()
+                HStack {
+                    Text("Location")
+                    Text(location)
+                } //hstack
+                Divider()
                 //            HStack {
                 //                Text("Number of episodes")
                 //                Text(episodeCount, format: .number)
@@ -76,6 +80,6 @@ struct CharacterDetailsView: View {
 
 struct CharacterDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        CharacterDetailsView(name: "", gender: "", species: "", status: "", origin: "", type: "", location: "")
+        CharacterDetailsView(name: "", gender: "", species: "", status: "", origin: "", type: "", location: "", image: "")
     }
 }

@@ -8,7 +8,14 @@
 import Foundation
 
 struct Results: Codable {
+    let info: Info
     let results: [Character]
+}
+
+struct Info: Codable {
+    let count: Int
+    let pages: Int
+    let next: String
 }
 
 struct Character: Codable, Identifiable {
