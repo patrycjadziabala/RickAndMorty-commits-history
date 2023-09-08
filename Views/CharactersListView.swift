@@ -8,60 +8,48 @@
 import SwiftUI
 
 struct CharactersListView: View {
-    @State private var characters = [Character]()
+    
+    @EnvironmentObject var apiManager: APIManager
+    @State private var characterPresented: Character?
     
     var body: some View {
-        List(characters, id: \.id) { character in
+        List(apiManager.characters, id: \.id) { character in
           
             HStack {
                 AsyncImage(url: URL(string: character.image)) { image in
                     image.resizable()
                 } placeholder: {
                     ProgressView()
-                }
+                } //image
                 .frame(width: 50, height: 50)
 
                 VStack (alignment: .leading) {
                     HStack {
                         Text(character.name)
-                    }
+                    } //hstack
                     HStack {
                         HStack {
                             Text("Status:")
                             Text(character.status)
-                        }
-                        Spacer()
+                        } //hstack
                         HStack {
                             Text("Species:")
                             Text(character.species)
-                        }
-                    }
-                }
+                        } //hstack
+                    } //hstack
+                } //vstack
+            } //hstack
+            .onTapGesture {
+                characterPresented = character
             }
+        } //List
+        .sheet(item: $characterPresented) { character in
+            CharacterDetailsView(character: character)
         }
-        .task {
-            await fetchData()
-        }
-    }
-    
-    // Move to API Manager
-    
-    func fetchData() async {
-        guard let url = URL(string: "https://rickandmortyapi.com/api/character") else {
-            print("Invalid URL")
-            return
-        }
-        do {
-            let (data, _) = try await URLSession.shared.data(from: url)
-            if let decodedResponse = try? JSONDecoder().decode(Results.self, from: data) {
-                characters = decodedResponse.results
-            }
-        } catch {
-            print("Invalid data, error: \(error)")
-        }
-    }
-    
-  
+//        .task {
+//            await apiManager.fetchData()
+//        }
+    } 
 }
 
 struct CharactersListView_Previews: PreviewProvider {
