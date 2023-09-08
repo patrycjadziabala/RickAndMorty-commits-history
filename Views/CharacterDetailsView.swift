@@ -8,66 +8,74 @@
 import SwiftUI
 
 struct CharacterDetailsView: View {
-    @EnvironmentObject var apiManager: APIManager
-    var character: Character
-//    @State var episodeCount: Int
+    //    @EnvironmentObject var apiManager: APIManager
+    //    var character: Character
+    //    @State var episodeCount: Int
+    
+    var name: String
+    var gender: String
+    var species: String
+    var status: String
+    var origin: String
+    var type: String
+    var location: String
     
     var body: some View {
-        VStack {
-                AsyncImage(url: URL(string: character.image)) { image in
-                    image.resizable()
-                } placeholder: {
-                    ProgressView()
-                } //image
-            
-            HStack {
-                Text("Name")
-                Text(character.name)
-            } //hstack
-            Divider()
-            HStack {
-                Text("Gender")
-                Text(character.gender)
-            } //hstack
-            Divider()
-            HStack {
-                Text("Species")
-                Text(character.species)
-            } //hstack
-            Divider()
-            HStack {
-                Text("Status")
-                Text(character.status)
-            } //hstack
-            Divider()
-            HStack {
-                Text("Origin")
-                Text(character.origin.name)
-            } //hstack
-            Divider()
-            HStack {
-                Text("Type")
-                Text(character.type ?? "Type unavailable")
+        ScrollView {
+            VStack {
+                //                AsyncImage(url: URL(string: character.image)) { image in
+                //                    image.resizable()
+                //                } placeholder: {
+                //                    ProgressView()
+                //                } //image
+                HStack {
+                    Text("Name")
+                    Text(name)
                 } //hstack
-            Divider()
-            HStack {
-                Text("Location")
-                Text(character.location.name)
-            } //hstack
-            Divider()
-//            HStack {
-//                Text("Number of episodes")
-//                Text(episodeCount, format: .number)
-//            } //hstack
-//            Divider()
-        } //vstack
+                Divider()
+                HStack {
+                    Text("Gender")
+                    Text(gender)
+                } //hstack
+                Divider()
+                HStack {
+                    Text("Species")
+                    Text(species)
+                } //hstack
+                Divider()
+//                HStack {
+//                    Text("Status")
+//                    Text(status)
+//                } //hstack
+//                Divider()
+//                HStack {
+//                    Text("Origin")
+//                    Text(origin)
+//                } //hstack
+//                Divider()
+//                HStack {
+//                    Text("Type")
+//                    Text(type)
+//                } //hstack
+//                Divider()
+//                HStack {
+//                    Text("Location")
+//                    Text(location)
+//                } //hstack
+//                Divider()
+                //            HStack {
+                //                Text("Number of episodes")
+                //                Text(episodeCount, format: .number)
+                //            } //hstack
+                //            Divider()
+            } //vstack
+        }
     }
 }
 
 
 struct CharacterDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        let apiManager = APIManager()
-        CharacterDetailsView(character: apiManager.characters[0])
+        CharacterDetailsView(name: "", gender: "", species: "", status: "", origin: "", type: "", location: "")
     }
 }

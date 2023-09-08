@@ -13,9 +13,7 @@ struct RickAndMortyApp: App {
     @StateObject var apiManager = APIManager()
     
     var body: some Scene {
-        WindowGroup {
-//            ContentView()
-            
+        WindowGroup {            
             CharactersListView()
                 .environmentObject(apiManager)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
