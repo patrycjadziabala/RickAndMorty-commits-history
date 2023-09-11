@@ -27,7 +27,7 @@ struct CharacterCellView: View {
                             Image(systemName: Constants.Images.starFill)
                         }
                     } //hstack
-                    HStack {
+                    VStack {
                         HStack {
                             Text(Constants.Titles.status2)
                             Text(character.status)

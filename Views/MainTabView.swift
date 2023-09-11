@@ -39,17 +39,9 @@ struct MainTabView: View {
                 Label(Constants.Titles.favourites, systemImage: Constants.Images.star )
             }
             
-            NavigationStack {
-                SearchView(text: Constants.Titles.search)
-                .navigationDestination(for: Character.self) { character in
-                    CharacterDetailsView(characterModel: character)
-                }
-                .navigationDestination(for: Origin.self) { origin in
-                    getCharactersListForLocation(location: origin)
-                }
-            }
-            .tabItem {
-                Label(Constants.Titles.search, systemImage: Constants.Images.magnifyingGlass)
+            SearchView(text: Constants.Titles.search)
+                .tabItem {
+                    Label(Constants.Titles.search, systemImage: Constants.Images.magnifyingGlass)
             }
 
         } //tabview

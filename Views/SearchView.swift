@@ -40,7 +40,20 @@ struct SearchView: View {
             .navigationDestination(for: String.self) { string in
                 getListViewForNameSearch(string: string)
             }
+            .navigationDestination(for: Character.self) { character in
+                CharacterDetailsView(characterModel: character)
+            }
+            .navigationDestination(for: Origin.self) { origin in
+                getCharactersListForLocation(location: origin)
+            }
         } //NavigationStack
+    }
+    
+    func getCharactersListForLocation(location: Origin) -> CharactersListView {
+        print("attempt to get character list for location")
+        let apiManager = APIManager(locationURLString: location.url, shouldPerformPagination: false)
+        let viewModel = CharactersListViewModel(apiManager: apiManager)
+        return CharactersListView(viewModel: viewModel)
     }
     
     func getListViewForNameSearch(string: String) -> CharactersListView {
