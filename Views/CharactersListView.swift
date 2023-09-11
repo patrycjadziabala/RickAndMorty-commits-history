@@ -44,14 +44,11 @@ struct CharactersListView: View {
                 }
             }
         }
-        .navigationDestination(for: Character.self) { character in
-            CharacterDetailsView(characterModel: character)
-        }
     }
 }
 
 struct CharactersListView_Previews: PreviewProvider {
     static var previews: some View {
-        CharactersListView(viewModel: CharactersListViewModel(apiManager: APIManager()))
+        CharactersListView(viewModel: CharactersListViewModel(apiManager: APIManager(shouldPerformPagination: false)))
     }
 }

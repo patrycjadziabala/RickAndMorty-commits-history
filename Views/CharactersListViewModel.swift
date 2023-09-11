@@ -25,7 +25,7 @@ class CharactersListViewModel: ObservableObject {
     @MainActor
     func fetchInitialData() async throws {
         if let initialData = await apiManager.fetchInitialData() {
-            characters.append(contentsOf: initialData)
+            characters = initialData
         } else {
             throw CharactersListViewModelError.fetchInitialDataFailed
         }

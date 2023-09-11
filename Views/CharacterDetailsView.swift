@@ -18,6 +18,7 @@ struct CharacterDetailsView: View {
                 getPartialView2(for: characterModel)
             } //vstack
         }
+
     }
     
     @ViewBuilder
@@ -57,8 +58,10 @@ struct CharacterDetailsView: View {
     @ViewBuilder
     func getPartialView2(for character: Character) -> some View {
         HStack {
-            Text(Constants.Titles.origin)
-            Text(characterModel.origin.name)
+            NavigationLink(value: characterModel.origin) {
+                Text(Constants.Titles.origin)
+                Text(characterModel.origin.name)
+            }
         } //hstack
         Divider()
         if let type = characterModel.type {
@@ -68,19 +71,19 @@ struct CharacterDetailsView: View {
             } //hstack
             Divider()
         }
-        HStack {
-            NavigationLink(value: characterModel) {
+            HStack {
                 Text(Constants.Titles.location)
                 Text(characterModel.location.name)
-            }
-        } //hstack
-        Divider()
+            } //hstack
+            Divider()
         //            HStack {
         //                Text("Number of episodes")
         //                Text(episodeCount, format: .number)
         //            } //hstack
         //            Divider()
     }
+    
+    
 }
 
 struct CharacterDetailsView_Previews: PreviewProvider {

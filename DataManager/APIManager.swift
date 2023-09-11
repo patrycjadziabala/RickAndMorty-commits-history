@@ -18,12 +18,17 @@ final class APIManager: ObservableObject, APIManagerProtocol {
     
     private var nextPageURLString: String = "https://rickandmortyapi.com/api/character"
     private var locationURLString: String?
+    private var shouldPerformPagination: Bool
     
-    init(locationURLString: String? = nil) {
+    init(locationURLString: String? = nil, shouldPerformPagination: Bool) {
         self.locationURLString = locationURLString
+        self.shouldPerformPagination = shouldPerformPagination
     }
     
     func fetchNextPage() async -> [Character]? {
+        guard shouldPerformPagination else {
+            return nil
+        }
         guard let url = URL(string: nextPageURLString) else {
             print("Invalid URL")
             return nil

@@ -44,7 +44,7 @@ struct SearchView: View {
     }
     
     func getListViewForNameSearch(string: String) -> CharactersListView {
-        let apiManager = APIManager()
+        let apiManager = APIManager(shouldPerformPagination: true)
         apiManager.configurePaginationForNameSearch(name: string)
         let viewModel = CharactersListViewModel(apiManager: apiManager)
         return CharactersListView(viewModel: viewModel)

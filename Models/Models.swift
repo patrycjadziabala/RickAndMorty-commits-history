@@ -38,12 +38,14 @@ struct Origin: Codable, Equatable, Hashable {
 
 struct Location: Codable, Equatable, Hashable {
     let name: String
+    
 }
 
-struct LocationModel: Codable {
+struct LocationModel: Codable, Hashable {
     let id: Int
     let name: String
     let type: String
     let residents: [String]
+    let url: String
 }
 
