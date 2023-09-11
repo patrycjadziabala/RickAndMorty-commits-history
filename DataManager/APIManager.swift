@@ -14,7 +14,7 @@ protocol APIManagerProtocol {
 }
 
 final class APIManager: ObservableObject, APIManagerProtocol {
-
+    
     private var nextPageURLString: String = "https://rickandmortyapi.com/api/character"
     
     func fetchNextPage() async -> [Character]? {

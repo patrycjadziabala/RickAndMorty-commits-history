@@ -15,7 +15,7 @@ struct CharacterDetailsView: View {
         ScrollView {
             VStack {
                 getPartialView(for: characterModel)
-              getPartialView2(for: characterModel)
+                getPartialView2(for: characterModel)
             } //vstack
         }
     }
@@ -28,28 +28,27 @@ struct CharacterDetailsView: View {
             ProgressView()
         } //image
         HStack {
-            Text("Name")
+            Text(Constants.Titles.name)
             Text(characterModel.name)
             Button {
                 persistanceManager.togglePersisted(model: character)
             } label: {
-                Image(systemName: persistanceManager.isPersisted(model: character) ? "star.fill" : "star")
+                Image(systemName: persistanceManager.isPersisted(model: character) ? Constants.Images.starFill : Constants.Images.star)
             }
-
         } //hstack
         Divider()
         HStack {
-            Text("Gender")
+            Text(Constants.Titles.gender)
             Text(characterModel.gender)
         } //hstack
         Divider()
         HStack {
-            Text("Species")
+            Text(Constants.Titles.species)
             Text(characterModel.species)
         } //hstack
         Divider()
         HStack {
-            Text("Status")
+            Text(Constants.Titles.status)
             Text(characterModel.status)
         } //hstack
         Divider()
@@ -58,19 +57,19 @@ struct CharacterDetailsView: View {
     @ViewBuilder
     func getPartialView2(for character: Character) -> some View {
         HStack {
-            Text("Origin")
+            Text(Constants.Titles.origin)
             Text(characterModel.origin.name)
         } //hstack
         Divider()
         if let type = characterModel.type {
             HStack {
-                Text("Type")
+                Text(Constants.Titles.type)
                 Text(type)
             } //hstack
             Divider()
         }
         HStack {
-            Text("Location")
+            Text(Constants.Titles.location)
             Text(characterModel.location.name)
         } //hstack
         Divider()
@@ -82,10 +81,8 @@ struct CharacterDetailsView: View {
     }
 }
 
-
 struct CharacterDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        
         CharacterDetailsView(characterModel: Character(id: 1, name: "", status: "", species: "", type: "", gender: "", origin: Origin(name: ""), location: Location(name: "") , image: "", episode: []))
     }
 }

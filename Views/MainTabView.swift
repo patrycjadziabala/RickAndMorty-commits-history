@@ -17,18 +17,17 @@ struct MainTabView: View {
                 CharactersListView(viewModel: CharactersListViewModel(apiManager: APIManager()))
             }
             .tabItem {
-                Label("Home", systemImage: "house.fill")
+                Label(Constants.Titles.home, systemImage: Constants.Images.homeIcon)
             }
             NavigationStack {
                 FavouritesView()
             }
             .tabItem {
-                Label("Fav", systemImage: "star")
+                Label(Constants.Titles.favourites, systemImage: Constants.Images.star )
             }
-            
-            SearchView(text: "Search")
+            SearchView(text: Constants.Titles.search)
                 .tabItem {
-                    Label("Search", systemImage: "magnifyingglass")
+                    Label(Constants.Titles.search, systemImage: Constants.Images.magnifyingGlass)
                 }
         } //tabview
         .environmentObject(persistanceManager)

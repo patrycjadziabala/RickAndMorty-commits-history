@@ -20,21 +20,20 @@ struct CharacterCellView: View {
                     ProgressView()
                 } //image
                 .frame(width: 50, height: 50)
-                
                 VStack (alignment: .leading) {
                     HStack {
                         Text(character.name)
                         if persistanceManager.isPersisted(model: character) {
-                            Image(systemName: "star.fill")
+                            Image(systemName: Constants.Images.starFill)
                         }
                     } //hstack
                     HStack {
                         HStack {
-                            Text("Status:")
+                            Text(Constants.Titles.status2)
                             Text(character.status)
                         } //hstack
                         HStack {
-                            Text("Species:")
+                            Text(Constants.Titles.species2)
                             Text(character.species)
                         } //hstack
                     } //hstack

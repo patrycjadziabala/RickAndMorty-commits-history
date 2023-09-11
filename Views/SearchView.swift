@@ -15,7 +15,7 @@ struct SearchView: View {
     var body: some View {
         NavigationStack(path: $navigationPath) {
             HStack {
-                TextField("Search ...", text: $text)
+                TextField(Constants.Titles.search2, text: $text)
                     .padding(7)
                     .padding(.horizontal, 25)
                     .background(Color(.systemGray6))
@@ -30,7 +30,7 @@ struct SearchView: View {
                         navigationPath.append(self.text)
                         self.text = ""
                     }) {
-                        Text("Go")
+                        Text(Constants.Titles.go)
                     }
                     .padding(.trailing, 10)
                     .transition(.move(edge: .trailing))
