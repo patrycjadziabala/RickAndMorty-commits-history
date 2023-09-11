@@ -12,13 +12,24 @@ struct CharactersListView: View {
     @ObservedObject var viewModel: CharactersListViewModel
     @EnvironmentObject var persistanceManager: PersistenceManager
     
-    init(viewModel: CharactersListViewModel) {
+    // all characters list
+    init() {
+        let apiManager = APIManager()
+        let viewModel = CharactersListViewModel(apiManager: apiManager)
         self.viewModel = viewModel
     }
     
+    // characters by name list
     init(nameSearchString: String) {
         let apiManager = APIManager()
-        apiManager.configureForNameSearch(name: nameSearchString)
+        apiManager.configurePaginationForNameSearch(name: nameSearchString)
+        let viewModel = CharactersListViewModel(apiManager: apiManager)
+        self.viewModel = viewModel
+    }
+    
+    // characters by location list
+    init(locationUrlString: String) {
+        let apiManager = APIManager(locationURLString: locationUrlString)
         let viewModel = CharactersListViewModel(apiManager: apiManager)
         self.viewModel = viewModel
     }
@@ -42,6 +53,15 @@ struct CharactersListView: View {
                     }
                 }
         } //List
+        .onAppear {
+            Task {
+                do {
+                    try await viewModel.fetchInitialData()
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
         .navigationDestination(for: Character.self) { character in
             CharacterDetailsView(characterModel: character)
         }

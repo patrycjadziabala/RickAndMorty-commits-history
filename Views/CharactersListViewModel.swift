@@ -9,6 +9,7 @@ import Foundation
 
 enum CharactersListViewModelError: Error {
     case fetchNextPageFailed
+    case fetchInitialDataFailed
     case searchResultsFailed
 }
 
@@ -19,6 +20,15 @@ class CharactersListViewModel: ObservableObject {
     
     init(apiManager: APIManagerProtocol) {
         self.apiManager = apiManager
+    }
+    
+    @MainActor
+    func fetchInitialData() async throws {
+        if let initialData = await apiManager.fetchInitialData() {
+            characters.append(contentsOf: initialData)
+        } else {
+            throw CharactersListViewModelError.fetchInitialDataFailed
+        }
     }
     
     @MainActor

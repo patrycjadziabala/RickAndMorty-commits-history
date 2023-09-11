@@ -16,6 +16,9 @@ struct MainTabView: View {
             NavigationStack {
                 CharactersListView(viewModel: CharactersListViewModel(apiManager: APIManager()))
             }
+            .navigationDestination(for: Character.self) { character in
+                CharacterDetailsView(characterModel: character)
+            }
             .tabItem {
                 Label(Constants.Titles.home, systemImage: Constants.Images.homeIcon)
             }

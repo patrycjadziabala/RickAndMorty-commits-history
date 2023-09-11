@@ -69,8 +69,10 @@ struct CharacterDetailsView: View {
             Divider()
         }
         HStack {
-            Text(Constants.Titles.location)
-            Text(characterModel.location.name)
+            NavigationLink(value: characterModel) {
+                Text(Constants.Titles.location)
+                Text(characterModel.location.name)
+            }
         } //hstack
         Divider()
         //            HStack {
@@ -83,6 +85,6 @@ struct CharacterDetailsView: View {
 
 struct CharacterDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        CharacterDetailsView(characterModel: Character(id: 1, name: "", status: "", species: "", type: "", gender: "", origin: Origin(name: ""), location: Location(name: "") , image: "", episode: []))
+        CharacterDetailsView(characterModel: Character(id: 1, name: "", status: "", species: "", type: "", gender: "", origin: Origin(name: "", url: ""), location: Location(name: "") , image: "", episode: []))
     }
 }

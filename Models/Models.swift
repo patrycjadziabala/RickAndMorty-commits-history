@@ -33,8 +33,17 @@ struct Character: Codable, Identifiable, Hashable, Equatable {
 
 struct Origin: Codable, Equatable, Hashable {
     let name: String
+    let url: String
 }
 
 struct Location: Codable, Equatable, Hashable {
     let name: String
 }
+
+struct LocationModel: Codable {
+    let id: Int
+    let name: String
+    let type: String
+    let residents: [String]
+}
+

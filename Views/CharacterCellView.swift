@@ -45,6 +45,6 @@ struct CharacterCellView: View {
 
 struct CharacterCellView_Previews: PreviewProvider {
     static var previews: some View {
-        CharacterCellView(character: Character(id: 1, name: "", status: "", species: "", type: "", gender: "", origin: Origin(name: ""), location: Location(name: "") , image: "", episode: []))
+        CharacterCellView(character: Character(id: 1, name: "", status: "", species: "", type: "", gender: "", origin: Origin(name: "", url: ""), location: Location(name: "") , image: "", episode: []))
     }
 }
