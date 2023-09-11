@@ -38,9 +38,16 @@ struct SearchView: View {
                 }
             } //HStack
             .navigationDestination(for: String.self) { string in
-                CharactersListView(nameSearchString: string)
+                getListViewForNameSearch(string: string)
             }
         } //NavigationStack
+    }
+    
+    func getListViewForNameSearch(string: String) -> CharactersListView {
+        let apiManager = APIManager()
+        apiManager.configurePaginationForNameSearch(name: string)
+        let viewModel = CharactersListViewModel(apiManager: apiManager)
+        return CharactersListView(viewModel: viewModel)
     }
 }
 

@@ -12,25 +12,7 @@ struct CharactersListView: View {
     @ObservedObject var viewModel: CharactersListViewModel
     @EnvironmentObject var persistanceManager: PersistenceManager
     
-    // all characters list
-    init() {
-        let apiManager = APIManager()
-        let viewModel = CharactersListViewModel(apiManager: apiManager)
-        self.viewModel = viewModel
-    }
-    
-    // characters by name list
-    init(nameSearchString: String) {
-        let apiManager = APIManager()
-        apiManager.configurePaginationForNameSearch(name: nameSearchString)
-        let viewModel = CharactersListViewModel(apiManager: apiManager)
-        self.viewModel = viewModel
-    }
-    
-    // characters by location list
-    init(locationUrlString: String) {
-        let apiManager = APIManager(locationURLString: locationUrlString)
-        let viewModel = CharactersListViewModel(apiManager: apiManager)
+    init(viewModel: CharactersListViewModel) {
         self.viewModel = viewModel
     }
     
