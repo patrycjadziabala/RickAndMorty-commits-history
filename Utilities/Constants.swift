@@ -33,6 +33,7 @@ struct Constants {
         static let star = "star"
         static let starFill = "star.fill"
         static let magnifyingGlass = "magnifyingglass"
+        static let titleImage = "titleImage"
     }
     
     //MARK: - Custom Colors

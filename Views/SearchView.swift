@@ -14,7 +14,11 @@ struct SearchView: View {
     
     var body: some View {
         NavigationStack(path: $navigationPath) {
-            HStack {
+            VStack {
+                Image(Constants.Images.titleImage)
+                    .resizable()
+                    .scaledToFit()
+                    .padding()
                 TextField(Constants.Titles.search2, text: $text)
                     .padding(7)
                     .padding(.horizontal, 25)
@@ -31,10 +35,13 @@ struct SearchView: View {
                         self.text = ""
                     }) {
                         Text(Constants.Titles.go)
+                            .fontWeight(.heavy)
+                            .font(.system(size: 25))
+                            .foregroundColor(Color(Constants.Colors.customBlue))
+                            .shadow(radius: 3)
                     }
                     .padding(.trailing, 10)
                     .transition(.move(edge: .trailing))
-                    //                .animation(.default)
                 }
             } //HStack
             .navigationDestination(for: String.self) { string in
