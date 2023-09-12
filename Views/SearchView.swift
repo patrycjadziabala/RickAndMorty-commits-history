@@ -28,6 +28,7 @@ struct SearchView: View {
                     .padding(.horizontal, 10)
                     .onTapGesture {
                         self.isEditing = true
+                        self.text = ""
                     }
                 if isEditing {
                     Button(action: {
