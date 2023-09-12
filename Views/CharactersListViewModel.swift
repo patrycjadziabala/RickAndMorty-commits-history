@@ -35,8 +35,6 @@ class CharactersListViewModel: ObservableObject {
     
     @MainActor
     func fetchCharactersForLocationIfNeeded() async throws {
-        throw CharactersListViewModelError.fetchLocationFetchFailed
-
         guard listMode == .charactersForLocation else {
             print("Attempted to fetch characters for location but listMode is different. Won't proceed.")
             return
