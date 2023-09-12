@@ -10,25 +10,17 @@ import SwiftUI
 
 protocol APIManagerProtocol {
     func fetchNextPage() async -> [Character]?
-    func fetchInitialData() async -> [Character]?
+    func fetchCharactersForLocation() async -> [Character]?
     func configurePaginationForNameSearch(name: String)
+    func setLocationURLString(urlString: String)
 }
 
 final class APIManager: ObservableObject, APIManagerProtocol {
     
     private var nextPageURLString: String = "https://rickandmortyapi.com/api/character"
     private var locationURLString: String?
-    private var shouldPerformPagination: Bool
-    
-    init(locationURLString: String? = nil, shouldPerformPagination: Bool) {
-        self.locationURLString = locationURLString
-        self.shouldPerformPagination = shouldPerformPagination
-    }
     
     func fetchNextPage() async -> [Character]? {
-        guard shouldPerformPagination else {
-            return nil
-        }
         guard let url = URL(string: nextPageURLString) else {
             print("Invalid URL")
             return nil
@@ -44,9 +36,9 @@ final class APIManager: ObservableObject, APIManagerProtocol {
         }
     }
     
-    func fetchInitialData() async -> [Character]? {
+    func fetchCharactersForLocation() async -> [Character]? {
         guard let locationURLString = locationURLString else {
-            print("Error fetching initial data - no location string")
+            print("Could not fetch characters for location: location URL string not found.")
             return nil
             // add error handling
         }
@@ -60,13 +52,17 @@ final class APIManager: ObservableObject, APIManagerProtocol {
         return charactersForLocation
     }
     
+    func setLocationURLString(urlString: String) {
+        locationURLString = urlString
+    }
+    
     func configurePaginationForNameSearch(name: String) {
         nextPageURLString = "https://rickandmortyapi.com/api/character/?name=\(name)"
     }
     
     private func fetchResidentsUrlsForLocation(locationURL: String) async -> [String]? {
         guard let url = URL(string: locationURL) else {
-            print("Invalid location URL")
+            print("Could not fetch characters for location: location URL string invalid")
             return nil
         }
         do {

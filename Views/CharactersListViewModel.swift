@@ -16,32 +16,49 @@ enum CharactersListViewModelError: Error {
 
 class CharactersListViewModel: ObservableObject {
     
-    private var shouldFetchInitialData: Bool = true
+    enum CharactersListMode {
+        case allCharacters
+        case charactersForLocation
+        case charactersForName
+    }
+    
+    private var charactersForLocationAlreadyFetched: Bool = false
     private let apiManager: APIManagerProtocol
+    private let listMode: CharactersListMode
+    
     @Published var characters: [Character] = []
     
-    init(apiManager: APIManagerProtocol) {
+    init(apiManager: APIManagerProtocol, listMode: CharactersListMode) {
         self.apiManager = apiManager
+        self.listMode = listMode
     }
     
     @MainActor
-    func fetchInitialData() async throws {
-        guard shouldFetchInitialData == true else {
+    func fetchCharactersForLocationIfNeeded() async throws {
+        guard listMode == .charactersForLocation else {
+            print("Attempted to fetch characters for location but listMode is different. Won't proceed.")
+            return
+        }
+        guard charactersForLocationAlreadyFetched == false else {
             print("Won't fetch initial data - already fetched")
             return
         }
-        print("Will fetch initial data")
+        print("Will fetch characters for location")
 
-        if let initialData = await apiManager.fetchInitialData() {
+        if let initialData = await apiManager.fetchCharactersForLocation() {
             characters = initialData
-            shouldFetchInitialData = false
+            charactersForLocationAlreadyFetched = true
         } else {
             throw CharactersListViewModelError.fetchInitialDataFailed
         }
     }
     
     @MainActor
-    func fetchNextPage() async throws {
+    func fetchNextPageIfNeeded() async throws {
+        guard listMode == .allCharacters || listMode == .charactersForName else {
+            print("Attempted to fetch next page but listMode doesn't allow paging. Won't proceed.")
+            return
+        }
         if let nextPageCharacters = await apiManager.fetchNextPage() {
             characters.append(contentsOf: nextPageCharacters)
         } else {

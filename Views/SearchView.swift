@@ -59,15 +59,16 @@ struct SearchView: View {
     
     func getCharactersListForLocation(location: Origin) -> CharactersListView {
         print("attempt to get character list for location")
-        let apiManager = APIManager(locationURLString: location.url, shouldPerformPagination: false)
-        let viewModel = CharactersListViewModel(apiManager: apiManager)
+        let apiManager = APIManager()
+        apiManager.setLocationURLString(urlString: location.url)
+        let viewModel = CharactersListViewModel(apiManager: apiManager, listMode: .charactersForLocation)
         return CharactersListView(viewModel: viewModel)
     }
     
     func getListViewForNameSearch(string: String) -> CharactersListView {
-        let apiManager = APIManager(shouldPerformPagination: true)
+        let apiManager = APIManager()
         apiManager.configurePaginationForNameSearch(name: string)
-        let viewModel = CharactersListViewModel(apiManager: apiManager)
+        let viewModel = CharactersListViewModel(apiManager: apiManager, listMode: .charactersForName)
         return CharactersListView(viewModel: viewModel)
     }
 }

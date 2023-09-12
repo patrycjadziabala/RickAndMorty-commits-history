@@ -14,6 +14,13 @@ struct CharactersListView: View {
     
     init(viewModel: CharactersListViewModel) {
         self.viewModel = viewModel
+        Task {
+            do {
+                try await viewModel.fetchCharactersForLocationIfNeeded()
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
     
     var body: some View {
@@ -26,7 +33,7 @@ struct CharactersListView: View {
                 .onAppear {
                     Task {
                         do {
-                            try await viewModel.fetchNextPage()
+                            try await viewModel.fetchNextPageIfNeeded()
                             
                             // TODO: - Error handling
                             
@@ -37,19 +44,13 @@ struct CharactersListView: View {
                 }
         } //List
         .onAppear {
-            Task {
-                do {
-                    try await viewModel.fetchInitialData()
-                } catch {
-                    print(error.localizedDescription)
-                }
-            }
+            
         }
     }
 }
 
 struct CharactersListView_Previews: PreviewProvider {
     static var previews: some View {
-        CharactersListView(viewModel: CharactersListViewModel(apiManager: APIManager(shouldPerformPagination: false)))
+        CharactersListView(viewModel: CharactersListViewModel(apiManager: APIManager(), listMode: .allCharacters))
     }
 }

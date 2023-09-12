@@ -14,7 +14,8 @@ struct MainTabView: View {
     var body: some View {
         TabView {
             NavigationStack {
-                CharactersListView(viewModel: CharactersListViewModel(apiManager: APIManager( shouldPerformPagination: true)))
+                CharactersListView(viewModel: CharactersListViewModel(apiManager: APIManager(),
+                                                                      listMode: .allCharacters))
                     .navigationDestination(for: Character.self) { character in
                         CharacterDetailsView(characterModel: character)
                     }
@@ -47,8 +48,10 @@ struct MainTabView: View {
     
     func getCharactersListForLocation(location: Origin) -> CharactersListView {
         print("attempt to get character list for location")
-        let apiManager = APIManager(locationURLString: location.url, shouldPerformPagination: false)
-        let viewModel = CharactersListViewModel(apiManager: apiManager)
+        let apiManager = APIManager()
+        apiManager.setLocationURLString(urlString: location.url)
+        let viewModel = CharactersListViewModel(apiManager: apiManager,
+                                                listMode: .charactersForLocation)
         return CharactersListView(viewModel: viewModel)
     }
 }
