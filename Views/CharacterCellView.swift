@@ -54,7 +54,9 @@ struct CharacterCellView: View {
                     }
                 }
             } //hstack
+            
         } //NavigationLink
+       
     }
 }
 

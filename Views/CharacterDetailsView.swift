@@ -17,6 +17,8 @@ struct CharacterDetailsView: View {
                 getPartialView(for: characterModel)
                 getPartialView2(for: characterModel)
             } //vstack
+            .background(Color(Constants.Colors.customLightBrown).opacity(0.07))
+            .cornerRadius(65)
         }
     }
     
@@ -102,6 +104,7 @@ struct CharacterDetailsView: View {
             } //vstack
             .font(Font.headline.weight(.light))
         } //hstack
+        .padding()
     }
 }
 
