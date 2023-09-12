@@ -39,13 +39,14 @@ final class APIManager: ObservableObject, APIManagerProtocol {
             nextPageURLString = decodedResponse.info.next
             return decodedResponse.results
         } catch {
-            print("Invalid data, error: \(error)")
+            print("Invalid data, error: \(error.localizedDescription)")
             return nil
         }
     }
     
     func fetchInitialData() async -> [Character]? {
         guard let locationURLString = locationURLString else {
+            print("Error fetching initial data - no location string")
             return nil
             // add error handling
         }

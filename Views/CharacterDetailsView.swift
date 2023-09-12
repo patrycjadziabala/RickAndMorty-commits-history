@@ -46,6 +46,7 @@ struct CharacterDetailsView: View {
                     .scaledToFit()
                     .frame(width: 35, height: 35)
                     .foregroundColor(.yellow)
+                    .shadow(radius: 1)
             } //button
             .offset(x: 150, y: -150)
         } //zstack

@@ -37,6 +37,7 @@ struct CharacterCellView: View {
                             Text(Constants.Titles.status2)
                             Text(character.status)
                         } //hstack
+                        .font(Font.headline.weight(.light))
                         HStack {
                             Text(Constants.Titles.species2)
                             Text(character.species)
@@ -51,6 +52,7 @@ struct CharacterCellView: View {
                             .scaledToFit()
                             .frame(width: 25, height: 25)
                             .foregroundColor(.yellow)
+                            .shadow(radius: 1)
                     }
                 } //hstack
             } //hstack

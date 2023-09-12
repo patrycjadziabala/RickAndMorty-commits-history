@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum CharactersListViewModelError: Error {
     case fetchNextPageFailed
@@ -26,8 +27,11 @@ class CharactersListViewModel: ObservableObject {
     @MainActor
     func fetchInitialData() async throws {
         guard shouldFetchInitialData == true else {
+            print("Won't fetch initial data - already fetched")
             return
         }
+        print("Will fetch initial data")
+
         if let initialData = await apiManager.fetchInitialData() {
             characters = initialData
             shouldFetchInitialData = false

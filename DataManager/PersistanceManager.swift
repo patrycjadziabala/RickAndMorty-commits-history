@@ -8,6 +8,7 @@
 import Foundation
 
 final class PersistenceManager: ObservableObject {
+    
     @Published var persistedData: [Character]
     private let kPersistedData = "kPersistedData"
     

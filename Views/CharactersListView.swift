@@ -21,7 +21,8 @@ struct CharactersListView: View {
             ForEach(viewModel.characters, id: \.id) { character in
                 CharacterCellView(character: character)
             } //foreach
-            Text("Test")
+            ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
                 .onAppear {
                     Task {
                         do {
