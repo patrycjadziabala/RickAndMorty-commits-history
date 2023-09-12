@@ -15,6 +15,7 @@ enum CharactersListViewModelError: Error {
 
 class CharactersListViewModel: ObservableObject {
     
+    private var shouldFetchInitialData: Bool = true
     private let apiManager: APIManagerProtocol
     @Published var characters: [Character] = []
     
@@ -24,8 +25,12 @@ class CharactersListViewModel: ObservableObject {
     
     @MainActor
     func fetchInitialData() async throws {
+        guard shouldFetchInitialData == true else {
+            return
+        }
         if let initialData = await apiManager.fetchInitialData() {
             characters = initialData
+            shouldFetchInitialData = false
         } else {
             throw CharactersListViewModelError.fetchInitialDataFailed
         }

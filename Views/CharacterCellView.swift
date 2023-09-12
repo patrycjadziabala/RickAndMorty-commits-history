@@ -14,20 +14,24 @@ struct CharacterCellView: View {
     var body: some View {
         NavigationLink(value: character) {
             HStack {
-                AsyncImage(url: URL(string: character.image)) { image in
-                    image.resizable()
-                } placeholder: {
-                    ProgressView()
-                } //image
-                .frame(width: 50, height: 50)
-                VStack (alignment: .leading) {
-                    HStack {
+                ZStack {
+                    Circle()
+                        .fill(Color(Constants.Colors.customLightBrown))
+                        .opacity(0.6)
+                        .scaledToFit()
+                        .frame(width: 65, height: 65)
+                    AsyncImage(url: URL(string: character.image)) { image in
+                        image.resizable()
+                    } placeholder: {
+                        ProgressView()
+                    } //image
+                    .frame(width: 60, height: 60)
+                    .cornerRadius(30)
+                } //zstack
+                HStack {
+                    VStack (alignment: .leading) {
                         Text(character.name)
-                        if persistanceManager.isPersisted(model: character) {
-                            Image(systemName: Constants.Images.starFill)
-                        }
-                    } //hstack
-                    VStack {
+                            .font(Font.headline.weight(.bold))
                         HStack {
                             Text(Constants.Titles.status2)
                             Text(character.status)
@@ -36,8 +40,19 @@ struct CharacterCellView: View {
                             Text(Constants.Titles.species2)
                             Text(character.species)
                         } //hstack
-                    } //hstack
-                } //vstack
+                        .font(Font.headline.weight(.light))
+                    } //vstack
+                    .scaledToFit()
+                    Spacer()
+                    if persistanceManager.isPersisted(model: character) {
+                        Image(systemName: Constants.Images.starFill)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 25, height: 25)
+                        //                                .offset(x: 125, y: -130)
+                            .foregroundColor(.yellow)
+                    }
+                }
             } //hstack
         } //NavigationLink
     }

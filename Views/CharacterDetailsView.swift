@@ -18,72 +18,91 @@ struct CharacterDetailsView: View {
                 getPartialView2(for: characterModel)
             } //vstack
         }
-
     }
     
     @ViewBuilder
     func getPartialView(for character: Character) -> some View {
-        AsyncImage(url: URL(string: characterModel.image)) { image in
-            image.resizable()
-        } placeholder: {
-            ProgressView()
-        } //image
-        HStack {
-            Text(Constants.Titles.name)
-            Text(characterModel.name)
+        ZStack {
+            AsyncImage(url: URL(string: characterModel.image)) { image in
+                image.resizable()
+            } placeholder: {
+                ProgressView()
+            } //image
+            .clipShape(Circle())
+            .frame(width: 370)
             Button {
                 persistanceManager.togglePersisted(model: character)
             } label: {
                 Image(systemName: persistanceManager.isPersisted(model: character) ? Constants.Images.starFill : Constants.Images.star)
-            }
-        } //hstack
-        Divider()
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 35, height: 35)
+                    .foregroundColor(.yellow)
+            } //button
+            .offset(x: 125, y: -130)
+        } //zstack
+        .padding()
         HStack {
-            Text(Constants.Titles.gender)
-            Text(characterModel.gender)
+            VStack {
+                Text(Constants.Titles.name)
+                Divider()
+                Text(Constants.Titles.gender)
+                Divider()
+                Text(Constants.Titles.species)
+                Divider()
+                Text(Constants.Titles.status)
+                Divider()
+            } //vstack
+            .font(Font.headline.weight(.bold))
+            .padding()
+            Divider()
+            VStack {
+                Text(characterModel.name)
+                Divider()
+                Text(characterModel.gender)
+                Divider()
+                Text(characterModel.species)
+                Divider()
+                Text(characterModel.status)
+                Divider()
+            } //vstack
+            .font(Font.headline.weight(.light))
+            .padding()
         } //hstack
-        Divider()
-        HStack {
-            Text(Constants.Titles.species)
-            Text(characterModel.species)
-        } //hstack
-        Divider()
-        HStack {
-            Text(Constants.Titles.status)
-            Text(characterModel.status)
-        } //hstack
-        Divider()
     }
     
     @ViewBuilder
     func getPartialView2(for character: Character) -> some View {
         HStack {
-            NavigationLink(value: characterModel.origin) {
+            VStack {
                 Text(Constants.Titles.origin)
-                Text(characterModel.origin.name)
-            }
-        } //hstack
-        Divider()
-        if let type = characterModel.type {
-            HStack {
-                Text(Constants.Titles.type)
-                Text(type)
-            } //hstack
-            Divider()
-        }
-            HStack {
+                Divider()
+                if ((character.type?.isEmpty) != nil) {
+                    Text(Constants.Titles.type).hidden()
+                } else {
+                    Text(Constants.Titles.type)
+                    Divider()
+                }
                 Text(Constants.Titles.location)
-                Text(characterModel.location.name)
-            } //hstack
+            } //vstack
+            .font(Font.headline.weight(.bold))
             Divider()
-        //            HStack {
-        //                Text("Number of episodes")
-        //                Text(episodeCount, format: .number)
-        //            } //hstack
-        //            Divider()
+            VStack {
+                NavigationLink(value: characterModel.origin) {
+                    Text(characterModel.origin.name)
+                }
+                Divider()
+                if ((character.type?.isEmpty) != nil) {
+                    Text(character.type ?? "").hidden()
+                } else {
+                    Text(character.type ?? "")
+                    Divider()
+                }
+                Text(characterModel.location.name)
+            } //vstack
+            .font(Font.headline.weight(.light))
+        } //hstack
     }
-    
-    
 }
 
 struct CharacterDetailsView_Previews: PreviewProvider {
