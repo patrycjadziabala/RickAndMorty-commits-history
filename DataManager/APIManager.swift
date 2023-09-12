@@ -40,7 +40,6 @@ final class APIManager: ObservableObject, APIManagerProtocol {
         guard let locationURLString = locationURLString else {
             print("Could not fetch characters for location: location URL string not found.")
             return nil
-            // add error handling
         }
         guard let residentUrls = await fetchResidentsUrlsForLocation(locationURL: locationURLString) else {
             return nil

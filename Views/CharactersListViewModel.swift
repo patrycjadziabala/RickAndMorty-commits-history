@@ -10,7 +10,7 @@ import SwiftUI
 
 enum CharactersListViewModelError: Error {
     case fetchNextPageFailed
-    case fetchInitialDataFailed
+    case fetchLocationFetchFailed
     case searchResultsFailed
 }
 
@@ -35,6 +35,8 @@ class CharactersListViewModel: ObservableObject {
     
     @MainActor
     func fetchCharactersForLocationIfNeeded() async throws {
+        throw CharactersListViewModelError.fetchLocationFetchFailed
+
         guard listMode == .charactersForLocation else {
             print("Attempted to fetch characters for location but listMode is different. Won't proceed.")
             return
@@ -49,7 +51,7 @@ class CharactersListViewModel: ObservableObject {
             characters = initialData
             charactersForLocationAlreadyFetched = true
         } else {
-            throw CharactersListViewModelError.fetchInitialDataFailed
+            throw CharactersListViewModelError.fetchLocationFetchFailed
         }
     }
     
