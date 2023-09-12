@@ -26,13 +26,18 @@ struct CharacterDetailsView: View {
     @ViewBuilder
     func getPartialView(for character: Character) -> some View {
         ZStack {
+            Circle()
+                .fill(Color(Constants.Colors.customLightBrown))
+                .opacity(0.6)
+                .scaledToFit()
+                .frame(width: 368, height: 368)
             AsyncImage(url: URL(string: characterModel.image)) { image in
                 image.resizable()
             } placeholder: {
                 ProgressView()
             } //image
             .clipShape(Circle())
-            .frame(width: 370)
+            .frame(width: 360)
             Button {
                 persistanceManager.togglePersisted(model: character)
             } label: {
@@ -42,7 +47,7 @@ struct CharacterDetailsView: View {
                     .frame(width: 35, height: 35)
                     .foregroundColor(.yellow)
             } //button
-            .offset(x: 125, y: -130)
+            .offset(x: 150, y: -150)
         } //zstack
         .padding()
         HStack {
