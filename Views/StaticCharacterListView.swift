@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct StaticCharacterListView: View {
+    
     let characters: [Character]
     
     var body: some View {

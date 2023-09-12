@@ -25,7 +25,6 @@ struct MainTabView: View {
             .tabItem {
                 Label(Constants.Titles.home, systemImage: Constants.Images.homeIcon)
             }
-            
             NavigationStack {
                 FavouritesView()
                     .navigationDestination(for: Character.self) { character in
@@ -38,12 +37,10 @@ struct MainTabView: View {
             .tabItem {
                 Label(Constants.Titles.favourites, systemImage: Constants.Images.star )
             }
-            
             SearchView(text: Constants.Titles.search)
                 .tabItem {
                     Label(Constants.Titles.search, systemImage: Constants.Images.magnifyingGlass)
-            }
-
+                }
         } //tabview
         .environmentObject(persistanceManager)
     }

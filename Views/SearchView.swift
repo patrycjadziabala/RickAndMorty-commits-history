@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
+    
     @State var text: String
     @State private var isEditing = false
     @State private var navigationPath = NavigationPath()
@@ -43,7 +44,7 @@ struct SearchView: View {
                     .padding(.trailing, 10)
                     .transition(.move(edge: .trailing))
                 }
-            } //HStack
+            } //vstack
             .navigationDestination(for: String.self) { string in
                 getListViewForNameSearch(string: string)
             }

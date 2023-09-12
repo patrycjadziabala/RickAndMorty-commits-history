@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct FavouritesView: View {
+    
     @EnvironmentObject var persistanceManager: PersistenceManager
     
     var body: some View {

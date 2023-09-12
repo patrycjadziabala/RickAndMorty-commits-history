@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CharacterCellView: View {
+    
     let character: Character
     @EnvironmentObject var persistanceManager: PersistenceManager
     
@@ -49,14 +50,11 @@ struct CharacterCellView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 25, height: 25)
-                        //                                .offset(x: 125, y: -130)
                             .foregroundColor(.yellow)
                     }
-                }
+                } //hstack
             } //hstack
-            
         } //NavigationLink
-       
     }
 }
 

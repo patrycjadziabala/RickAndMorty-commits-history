@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CharacterDetailsView: View {
+    
     let characterModel: Character
     @EnvironmentObject var persistanceManager: PersistenceManager
     
